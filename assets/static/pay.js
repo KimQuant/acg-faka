@@ -169,13 +169,15 @@ var Pay = {
             typeof done === 'function' && done(data);
         });
     },
-    getTradeAmount(commodityId, coupon, cardId, num, race, done) {
+    getTradeAmount(commodityId, coupon, cardId, num, race, moneyAmount, traderNum, done) {
         this.$post("/user/api/index/tradeAmount", {
             num: num,
             cardId: cardId,
             coupon: coupon,
             commodityId: commodityId,
-            race: race
+            race: race,
+            traderNum: traderNum,
+            moneyAmount: moneyAmount
         }, done);
     },
     trade(option, done, error) {

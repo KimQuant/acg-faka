@@ -899,7 +899,8 @@ class OrderService implements Order
      * @return array
      * @throws JSONException
      */
-    #[ArrayShape(["amount" => "mixed", "price" => "float|int", "couponMoney" => "float|int"])] public function getTradeAmount(?User $user, ?UserGroup $userGroup, int $cardId, int $num, string $coupon, int|Commodity|null $commodityId, ?string $race = null, bool $disableShared = false): array
+    #[ArrayShape(["amount" => "mixed", "price" => "float|int", "couponMoney" => "float|int"])]
+    public function getTradeAmount(?User $user, ?UserGroup $userGroup, int $cardId, int $num, string $coupon, int|Commodity|null $commodityId, int $traderNum, int $moneyAmount, ?string $race = null, bool $disableShared = false): array
     {
         if ($num <= 0) {
             throw new JSONException("购买数量不能低于1个");
@@ -954,6 +955,11 @@ class OrderService implements Order
         if ($cardId != 0 && $commodity->draft_status == 1) {
             $amount = $amount + $commodity->draft_premium;
         }
+
+        if ($traderNum != 0) {
+            $amount *= $traderNum;
+        }
+        $amount += ($moneyAmount * 450);
 
         $couponMoney = 0;
         //优惠卷

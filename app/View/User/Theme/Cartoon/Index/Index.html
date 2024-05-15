@@ -49,14 +49,14 @@
                     <div style="margin-bottom: 10px;"><img src="/favicon.ico" alt=""
                                                            style="border-radius: 100%;height: 28px;"
                                                            class="service-avatar"> <span
-                                style="color: #e093ff;position: relative;top: 1px;" class="service-nickname">自营商品</span>
+                            style="color: #e093ff;position: relative;top: 1px;" class="service-nickname">自营商品</span>
                     </div>
                     <a class="button-click service-url" style="line-height: 22px;margin-right: 0;color: #ff8888;"
                        target="_blank"><i
-                                class="fa fa-user-plus"></i> 网页客服</a>
+                            class="fa fa-user-plus"></i> 网页客服</a>
                     <a class="button-click service-qq" style="line-height: 22px;margin-right: 0;color: #7599b1;"
                        target="_blank"><i
-                                class="fa fa-qq"></i> ＱＱ客服</a>
+                            class="fa fa-qq"></i> ＱＱ客服</a>
                 </div>
             </div>
         </div>
@@ -79,7 +79,8 @@
             <div class="card-block">
                 <div class="login-display"
                      style="text-align: center;font-weight: bold;margin: 10px 0 20px 0;font-size: 18px;color: #00A3FF;display: none;">
-                    该商品需要登录才能购买，<a class="login-url" href="/user/authentication/login?goto=/">现在登录</a></div>
+                    该商品需要登录才能购买，<a class="login-url" href="/user/authentication/login?goto=/">现在登录</a>
+                </div>
                 <div class="row pay_type" style="margin-left: 0px;"></div>
             </div>
         </div>
@@ -93,60 +94,69 @@
     const setting_cache = #{$setting.cache};
     const setting_cache_expire = #{$setting.cache_expire};
 
-    let commodityHtml = '<div class="card-block">\n' +
-        '                    <div class="row">\n' +
-        '                        <div class="col-md-5 description"></div>\n' +
-        '                        <div class="col-md-7">\n' +
-        '                            <h4 class="productName" style="margin-bottom: 10px;"></h4>\n' +
-        '                            <p><span style="color: #0C84D1;font-size: 14px;cursor: pointer;" class="clipboard" data-clipboard-text=""><i class="fa fa-share"></i> 将宝贝分享给好友</span></p>\n' +
-        '                            <p style="display: none;" class="seckill_status">限时秒杀： <span class="text-danger seckill"></span></p>\n' +
-        '                            <p>商品单价： <span class="text-success price"></span></p>\n' +
-        '                            <p>发货方式： <span class="badge badge-pill text-white cardType"></span></p>\n' +
-        '                            <fieldset class="form-group">\n' +
-        '                                <label style="display: inline-block;">联系方式：</label>\n' +
-        '                                <input class="form-control round contact" name="contact" placeholder="">\n' +
-        '                            </fieldset>\n' +
-        '                            <fieldset class="form-group fieldset-password" style="display: none;">\n' +
-        '                                <label style="display: inline-block;">查询密码：</label>\n' +
-        '                                <input class="form-control round password" name="password" type="password"\n' +
-        '                                       placeholder="请设置您的订单查询密码(6位以上)">\n' +
-        '                            </fieldset>\n' +
-        '                            <fieldset class="form-group voucher-view" style="display: none;">\n' +
-        '                                <label style="display: inline-block;">优惠代卷：</label>\n' +
-        '                                <input class="form-control round voucher" onchange="getTradeAmount()" name="coupon"\n' +
-        '                                       placeholder="如果您有优惠卷可以填写优惠卷，没有可不填写">\n' +
-        '                            </fieldset>\n' +
-        '                            <fieldset class="form-group race-view" style="display: none;">\n' +
-        '                                <label style="display: inline-block;">选择种类：</label>\n' +
-        '                                 <span class="race-list"></span>\n' +
-        '                            </fieldset>\n' +
-        '                            <fieldset class="form-group">\n' +
-        '                                <label>购买数量：</label>\n' +
-        '                                <input class="form-control round buyNum" onchange="getTradeAmount()" name="num"\n' +
-        '                                       type="number" style="width: 10%;" value="1">\n' +
-        '                                <span style="margin-left: 10px;display: none;" class="kucunView"> 剩余库存: <span\n' +
-        '                                        class="badge badge-pill badge-success text-white card_count">0</span></span>\n' +
-        '                            </fieldset><p class="widget"></p>\n' +
-        '                            <p><span class="purchase_count" style="font-size: 14px;font-weight: bold;color: #c59de9;display: none;"></span></p>\n' +
-        '                            #{if $config.trade_verification==1}\n' +
-        '                            <fieldset class="form-group">\n' +
-        '                                <label>人机验证：</label>\n' +
-        '                                <input class="form-control round captcha" name="captcha" type="text" style="width: 15%;"\n' +
-        '                                       value="">\n' +
-        '                                <span style="margin-left: 10px;"><img\n' +
-        '                                    class="captchaImage"\n' +
-        '                                        style="margin-top: -3px;cursor: pointer;" src="/user/captcha/image?action=trade"\n' +
-        '                                        alt="验证码"></span>\n' +
-        '                            </fieldset>\n' +
-        '                            #{/if}\n' +
-        '                            <p style="" class="payAmountView">订单金额： <span><b style="font-size:16px;color: #f757b7;font-weight: bold;" class="payAmount"></b></span></p>\n' +
-        '                            <fieldset class="form-group wholesale" style="display: none;">\n' +
-        '                                <div style="font-size: 12px;color: #ff5aa6;font-weight: bold;"\n' +
-        '                                     class="wholesaleHtml"></div>\n' +
-        '                            </fieldset>\n' +
-        '                        </div>\n' +
-        '                    </div>\n' +
-        '                </div>';
+    let commodityHtml = `
+<div class="card-block">
+    <div class="row">
+        <div class="col-md-5 description"></div>
+        <div class="col-md-7">
+            <h4 class="productName" style="margin-bottom: 10px;"></h4>
+            <p><span style="color: #0C84D1;font-size: 14px;cursor: pointer;" class="clipboard" data-clipboard-text=""><i class="fa fa-share"></i> 将宝贝分享给好友</span></p>
+            <p style="display: none;" class="seckill_status">限时秒杀： <span class="text-danger seckill"></span></p>
+            <p>商品单价： <span class="text-success price"></span></p>
+            <p>发货方式： <span class="badge badge-pill text-white cardType"></span></p>
+            <fieldset class="form-group">
+                <label style="display: inline-block;">联系方式：</label>
+                <input class="form-control round contact" name="contact" placeholder="">
+            </fieldset>
+            <fieldset class="form-group fieldset-password" style="display: none;">
+                <label style="display: inline-block;">查询密码：</label>
+                <input class="form-control round password" name="password" type="password" placeholder="请设置您的订单查询密码(6位以上)">
+            </fieldset>
+            <fieldset class="form-group voucher-view" style="display: none;">
+                <label style="display: inline-block;">优惠代卷：</label>
+                <input class="form-control round voucher" onchange="getTradeAmount()" name="coupon" placeholder="如果您有优惠卷可以填写优惠卷，没有可不填写">
+            </fieldset>
+            <fieldset class="form-group race-view" style="display: none;">
+                <label style="display: inline-block;">选择种类：</label>
+                <span class="race-list"></span>
+            </fieldset>
+            <fieldset class="form-group">
+                <label>购买数量：</label>
+                <input class="form-control round buyNum" onchange="getTradeAmount()" name="num" type="number" style="width: 10%;" value="1">
+                <span style="margin-left: 10px;display: none;" class="kucunView"> 剩余库存: <span class="badge badge-pill badge-success text-white card_count">0</span></span>
+            </fieldset>
+            <p class="widget"></p>
+            <p><span class="purchase_count" style="font-size: 14px;font-weight: bold;color: #c59de9;display: none;"></span></p>
+            <fieldset class="form-group">
+                <label>额外的交易员数量：</label>
+                <input class="form-control round" id="trader_num" name="trader_num" type="number" style="width: 10%;" value="0" onchange="getTradeAmount()">
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="money_amount">跟单金额：</label>
+                <select id="money_amount" name="money_amount" class="form-control round" onchange="getTradeAmount()">
+                    <option value="1">10000 USDT</option>
+                    <option value="2">20000 USDT</option>
+                    <option value="3">30000 USDT</option>
+                    <option value="4">40000 USDT</option>
+                    <option value="5">50000 USDT</option>
+                    <option value="10">100000 USDT</option>
+                    <option value="0" selected>如果使用我们的邀请链接，请无视该选项</option>
+                </select>
+            </fieldset>
+            #{if $config.trade_verification==1}
+            <fieldset class="form-group">
+                <label>人机验证：</label>
+                <input class="form-control round captcha" name="captcha" type="text" style="width: 15%;" value="">
+                <span style="margin-left: 10px;"><img class="captchaImage" style="margin-top: -3px;cursor: pointer;" src="/user/captcha/image?action=trade" alt="验证码"></span>
+            </fieldset>
+            #{/if}
+            <p style="" class="payAmountView">订单金额： <span><b style="font-size:16px;color: #f757b7;font-weight: bold;" class="payAmount"></b></span></p>
+            <fieldset class="form-group wholesale" style="display: none;">
+                <div style="font-size: 12px;color: #ff5aa6;font-weight: bold;" class="wholesaleHtml"></div>
+            </fieldset>
+        </div>
+    </div>
+</div>`;
     let switchElement = function (obj) {
         $('.checked').removeClass('checked');
         $(obj).addClass('checked');
@@ -343,15 +353,15 @@
             }
 
             #{if $user}
-            $('.price').html("¥" + commodity.user_price);
-            $('.payAmount').html("¥" + commodity.user_price);
+            $('.price').html("$" + commodity.user_price);
+            $('.payAmount').html("$" + commodity.user_price);
             #{else}
             let user = "";
             if (commodity.user_price < commodity.price) {
-                user = '<span class="price_tips">(会员价:¥' + commodity.user_price + ') <a style="color: #6d97d5;" href="/user/authentication/login" target="_blank">现在就去登录!</a></span>';
+                user = '<span class="price_tips">(会员价:$' + commodity.user_price + ') <a style="color: #6d97d5;" href="/user/authentication/login" target="_blank">现在就去登录!</a></span>';
             }
-            $('.price').html('¥' + commodity.price + ' ' + user);
-            $('.payAmount').html("¥" + commodity.price);
+            $('.price').html('$' + commodity.price + ' ' + user);
+            $('.payAmount').html("$" + commodity.price);
 
             //未登录
             //判断是否需要登录才能购买商品
@@ -495,7 +505,7 @@
                         }
                         let x = '';
                         ws.forEach((money, num) => {
-                            x += '<div class="lot_string">一次性购买' + num + '张，单价自动调整为：<b>¥' + money + '</b></div>';
+                            x += '<div class="lot_string">一次性购买' + num + '张，单价自动调整为：<b>$' + money + '</b></div>';
                         });
                         if (ws.length > 0) {
                             $('.wholesale').show();
@@ -522,7 +532,7 @@
                     }
                     let x = '';
                     ws.forEach((money, num) => {
-                        x += '<div class="lot_string">一次性购买' + num + '张，单价自动调整为：<b>¥' + money + '</b></div>';
+                        x += '<div class="lot_string">一次性购买' + num + '张，单价自动调整为：<b>$' + money + '</b></div>';
                     });
                     if (ws.length > 0) {
                         $('.wholesale').show();
@@ -560,9 +570,11 @@
         if (cardId === undefined) {
             cardId = 0;
         }
-        Pay.getTradeAmount(globalCommodityId, coupon, cardId, num, globalRaceId, res => {
-            $('.payAmount').html("¥" + res.amount);
-            $('.price').html("¥" + res.price);
+        let moneyAmount = $('select[name=money_amount]').val();
+        let traderNum = $('input[name=trader_num]').val();
+        Pay.getTradeAmount(globalCommodityId, coupon, cardId, num, globalRaceId, moneyAmount, traderNum, res => {
+            $('.payAmount').html("$" + res.amount);
+            $('.price').html("$" + res.price);
             if (res.hasOwnProperty("card_count")) {
                 let instance = $('.card_count');
                 if (inventoryHidden == 1) {

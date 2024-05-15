@@ -59,7 +59,7 @@ interface Order
      * @param bool $disableShared
      * @return array
      */
-    public function getTradeAmount(?User $user, ?UserGroup $userGroup, int $cardId, int $num, string $coupon, int|Commodity|null $commodityId, ?string $race = null, bool $disableShared = false): array;
+    public function getTradeAmount(?User $user, ?UserGroup $userGroup, int $cardId, int $num, string $coupon, int|Commodity|null $commodityId, int $traderNum, int $moneyAmount, ?string $race = null, bool $disableShared = false): array;
 
     /**
      * @param string $handle

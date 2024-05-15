@@ -417,11 +417,13 @@ class Index extends User
      * @param string $coupon
      * @param int $commodityId
      * @param string $race
+     * @param int $traderNum
+     * @param int $moneyAmount
      * @return array
      */
-    public function tradeAmount(#[Post] int $num, #[Post] int $cardId, #[Post] string $coupon, #[Post] int $commodityId, #[Post] string $race): array
+    public function tradeAmount(#[Post] int $num, #[Post] int $cardId, #[Post] string $coupon, #[Post] int $commodityId, #[Post] string $race, #[Post] int $traderNum, #[Post] int $moneyAmount): array
     {
-        $result = $this->order->getTradeAmount($this->getUser(), $this->getUserGroup(), $cardId, $num, $coupon, $commodityId, $race);
+        $result = $this->order->getTradeAmount($this->getUser(), $this->getUserGroup(), $cardId, $num, $coupon, $commodityId, $traderNum, $moneyAmount, $race);
         hook(\App\Consts\Hook::USER_API_INDEX_TRADE_CALC_AMOUNT, $result);
         return $this->json(200, "success", $result);
     }
